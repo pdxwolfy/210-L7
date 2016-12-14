@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>javascript</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="assert.js"></script>
+  </head>
+
+  <body>
+    <pre id="console">
+    </pre>
+
+    <script>
+'use strict';
+
+// Transform: Set country to Canada
+// Transform: Capitalize Band names
+// Transform: remove dots from Band names
+function processBands(data) {
+  function setCanada(item) {
+    item.country = 'Canada';
+    return item;
+  }
+
+  function capitalize(string) {
+    return string[0].toUpperCase() + string.slice(1);
+  }
+
+  function concatenate(resultString, nextPart) {
+    if (resultString === '') {
+      return nextPart;
+    } else {
+      return resultString + ' ' + nextPart;
+    }
+  }
+
+  function capitalizeBandName(item) {
+    item.name = item.name.split(' ')
+                         .map(capitalize)
+                         .reduce(concatenate);
+    return item;
+  }
+
+  function stripDotsFromBandName(item) {
+    item.name = item.name.replace(/\./g, '');
+    return item;
+  }
+
+  return data.map(setCanada)
+             .map(capitalizeBandName)
+             .map(stripDotsFromBandName);
+}
+
+/* eslint-disable no-magic-numbers */
+/* eslint-disable vars-on-top */
+/* global show, log, theEnd */
+
+var bands = [
+  { name: 'sunset rubdown', country: 'UK', active: false },
+  { name: 'women', country: 'Germany', active: false },
+  { name: 'a silver mt. zion', country: 'Spain', active: true },
+];
+
+log(processBands(bands), [
+  { name: 'Sunset Rubdown', country: 'Canada', active: false },
+  { name: 'Women', country: 'Canada', active: false },
+  { name: 'A Silver Mt Zion', country: 'Canada', active: true },
+]);
+
+theEnd();
+    </script>
+  </body>
+</html>

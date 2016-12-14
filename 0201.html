@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>javascript</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="assert.js"></script>
+  </head>
+
+  <body>
+    <pre id="console">
+    </pre>
+
+    <script>
+'use strict';
+
+var myMap = function myMap(array, func) {
+  var index;
+  var resultArray = [];
+
+  for (index = 0; index < array.length; ++index) {
+    resultArray.push(func(array[index], index, array));
+  }
+
+  return resultArray;
+};
+
+/* eslint-disable no-magic-numbers */
+/* eslint-disable vars-on-top */
+/* global show, log, theEnd */
+
+var plusOne = function plusOne(n) {
+  return n + 1;
+};
+
+log(myMap([1, 2, 3, 4], plusOne), [2, 3, 4, 5]);
+log(myMap([5], plusOne), [6]);
+log(myMap([], plusOne), []);
+theEnd();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>javascript</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="assert.js"></script>
+  </head>
+
+  <body>
+    <pre id="console">
+    </pre>
+
+    <script>
+'use strict';
+
+// Sum all exam scores
+// Compute average exam score
+// Sum all exercise scores
+// Compute weighted totals
+// Sum weighted totals
+// Round to nearest integer
+// Determine students letter grade
+// Add students score and letter grade to result.studentGrades
+
+// Compute average score for each exam
+// Compute minimum score for each exam
+// Compute maximum score for each exam
+
+function sum(values) {
+  return values.reduce(
+    function add(total, value) {
+      return total + value;
+    }
+  )
+}
+
+function average(values) {
+  return sum(values) / values.length;
+}
+
+function roundedAverage(values) {
+  return Math.round(average(values));
+}
+
+function grade(score) {
+  if (score >= 93) {
+    return 'A';
+  } else if (score >= 85) {
+    return 'B';
+  } else if (score >= 77) {
+    return 'C';
+  } else if (score >= 69) {
+    return 'D';
+  } else if (score >= 60) {
+    return 'E';
+  } else {
+    return 'F';
+  }
+}
+
+function weightedSum(examScore, exerciseScore) {
+  return Math.round((0.65 * examScore) + (0.35 * exerciseScore));
+}
+
+function generateClassRecordSummary(scores) {
+  function averageExamScores(listOfScores) {
+    listOfScroes
+    console.log(listOfScores);
+    console.log(listOfScores.reduce(sum));
+    console.log(listOfScores.reduce(sum) / listOfScores.length);
+    return Math.round(listOfScores.reduce(sum) / listOfScores.length);
+  }
+
+  var scoreData = Object.keys(scores).map(
+    function scoresData(student) {
+      return scores[student].scores;
+    }
+  );
+
+  var examScores = scoreData.map(
+    function exams(item) {
+      return item.exams;
+    }
+  );
+
+  var exerciseScores = scoreData.map(
+    function exercises(item) {
+      return item.exercises;
+    }
+  );
+
+  console.log(exerciseScores);
+  var averageExamScores = examScores.map(roundedAverage);
+  var totalExerciseScores = exerciseScores.map(sum);
+
+  console.log(averageExamScores);
+  console.log(totalExerciseScores);
+  function studentGradeSummary() {
+    return null;
+  };
+
+  return {
+    studentGrades: studentGradeSummary(),
+    exams: examStatistics(),
+  };
+}
+
+/* eslint-disable no-magic-numbers */
+/* eslint-disable vars-on-top */
+/* global show, log, theEnd */
+
+var studentScores = {
+  student1: {
+    id: 123456789,
+    scores: {
+      exams: [90, 95, 100, 80],
+      exercises: [20, 15, 10, 19, 15],
+    },
+  },
+  student2: {
+    id: 123456799,
+    scores: {
+      exams: [50, 70, 90, 100],
+      exercises: [0, 15, 20, 15, 15],
+    },
+  },
+  student3: {
+    id: 123457789,
+    scores: {
+      exams: [88, 87, 88, 89],
+      exercises: [10, 20, 10, 19, 18],
+    },
+  },
+  student4: {
+    id: 112233445,
+    scores: {
+      exams: [100, 100, 100, 100],
+      exercises: [10, 15, 10, 10, 15],
+    },
+  },
+  student5: {
+    id: 112233446,
+    scores: {
+      exams: [50, 80, 60, 90],
+      exercises: [10, 0, 10, 10, 0],
+    },
+  },
+};
+
+log(
+  generateClassRecordSummary(studentScores),
+  {
+    studentGrades: ['87 (B)', '73 (D)', '84 (C)', '86 (B)', '56 (F)'],
+    exams: [
+      { average: 75.6, minimum: 50, maximum: 100 },
+      { average: 86.4, minimum: 70, maximum: 100 },
+      { average: 87.6, minimum: 60, maximum: 100 },
+      { average: 91.8, minimum: 80, maximum: 100 },
+    ],
+  }
+);
+
+
+theEnd();
+    </script>
+  </body>
+</html>

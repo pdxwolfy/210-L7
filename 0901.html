@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>javascript</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="assert.js"></script>
+  </head>
+
+  <body>
+    <pre id="console">
+    </pre>
+
+    <script>
+'use strict';
+
+// Find all words in list that have the same letters as word
+function anagram(word, list) {
+  var lettersInMainWord;
+
+  function sameList(list1, list2) {
+    function compareList2(element, index) {
+      return element === list2[index];
+    }
+
+    return list1.length === list2.length && list1.every(compareList2);
+  }
+
+  function lettersInWord(theWord) {
+    function compareChars(firstChar, secondChar) {
+      return firstChar.charCodeAt() - secondChar.charCodeAt();
+    }
+
+    return theWord.split('').sort(compareChars);
+  }
+
+  lettersInMainWord = lettersInWord(word);
+
+  function areAnagrams(candidateWord) {
+    function sameLetters(string) {
+      return sameList(lettersInMainWord, lettersInWord(string));
+    }
+
+    return sameLetters(candidateWord);
+  }
+
+  return list.filter(areAnagrams);
+}
+
+/* eslint-disable no-magic-numbers */
+/* eslint-disable vars-on-top */
+/* global show, log, theEnd */
+
+log(anagram('listen', ['enlists', 'google', 'inlets', 'banana']), ['inlets']);
+log(anagram('listen', ['enlist', 'inlets', 'banana']), ['enlist', 'inlets']);
+log(anagram('listen', ['google', 'banana']), []);
+log(anagram('listen', ['listen']), ['listen']);
+log(anagram('listen', ['listens']), []);
+log(anagram('listen', []), []);
+
+theEnd();
+    </script>
+  </body>
+</html>

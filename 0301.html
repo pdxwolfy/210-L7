@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>javascript</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="assert.js"></script>
+  </head>
+
+  <body>
+    <pre id="console">
+    </pre>
+
+    <script>
+'use strict';
+
+var myReduce = function myReduce(array, func, initial) {
+  var result = initial;
+  var start = 0;
+
+  if (typeof initial === 'undefined') {
+    result = array[0];
+    start = 1;
+  }
+
+  array.slice(start).forEach(
+    function makeCallback(value) {
+      result = func(result, value);
+    }
+  );
+
+  return result;
+};
+
+var smallest = function smallest(result, value) {
+  return result <= value ? result : value;
+};
+
+var sum = function sum(result, value) {
+  return result + value;
+};
+
+var product = function product(result, value) {
+  return result * value;
+};
+
+/* eslint-disable no-magic-numbers */
+/* eslint-disable vars-on-top */
+/* global show, log, theEnd */
+
+log(myReduce([5, 12, 15, 1, 6], smallest), 1);
+log(myReduce([5, 12, 15, 1, 6], sum), 39);
+log(myReduce([5, 12, 15, 1, 6], product), 5400);
+log(myReduce([5, 12, 15, 1, 6], smallest, -1), -1);
+log(myReduce([5, 12, 15, 1, 6], smallest, 3), 1);
+log(myReduce([5, 12, 15, 1, 6], sum, -13), 26);
+log(myReduce([5, 12, 15, 1, 6], sum, -39), 0);
+log(myReduce([5, 12, 15, 1, 6], product, 0.01), 54);
+log(myReduce([5, 12, 15, 1, 6], product, 0), 0);
+log(myReduce([5], smallest), 5);
+log(myReduce([5], sum), 5);
+log(myReduce([5], product), 5);
+theEnd();
+    </script>
+  </body>
+</html>

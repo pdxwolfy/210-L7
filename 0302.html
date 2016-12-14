@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>javascript</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="assert.js"></script>
+  </head>
+
+  <body>
+    <pre id="console">
+    </pre>
+
+    <script>
+'use strict';
+
+var myReduce = function myReduce(array, func, initial) {
+  var result = initial;
+  var start = 0;
+
+  if (typeof initial === 'undefined') {
+    result = array[0];
+    start = 1;
+  }
+
+  array.slice(start).forEach(
+    function makeCallback(value) {
+      result = func(result, value);
+    }
+  );
+
+  return result;
+};
+
+var longest = function longest(result, currentWord) {
+  return currentWord.length >= result.length ? currentWord : result;
+};
+
+var longestWord = function longestWord(words) {
+  return myReduce(words, longest);
+};
+
+/* eslint-disable no-magic-numbers */
+/* eslint-disable vars-on-top */
+/* global show, log, theEnd */
+
+log(longestWord(['Four', 'score', 'and', 'seven', 'years', 'ago']), 'years');
+log(longestWord(["What's", 'up', 'doc?']), "What's");
+log(longestWord([]));
+log(longestWord(['hello']), 'hello');
+log(longestWord(['doc', 'launch', 'targets']), 'targets');
+theEnd();
+    </script>
+  </body>
+</html>

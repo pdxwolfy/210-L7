@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>javascript</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="assert.js"></script>
+  </head>
+
+  <body>
+    <pre id="console">
+    </pre>
+
+    <script>
+'use strict';
+
+var myOwnEvery = function myOwnEvery(array, func) {
+  var index;
+
+  for (index = 0; index < array.length; ++index) {
+    if (!func(array[index], index, array)) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
+var isANumber = function isANumber(value) {
+  return typeof value === 'number';
+};
+
+var areAllNumbers = function areAllNumbers(array) {
+  return myOwnEvery(array, isANumber);
+};
+
+/* eslint-disable no-magic-numbers */
+/* eslint-disable vars-on-top */
+/* global show, log, theEnd */
+
+log(areAllNumbers(['a', 'a234', '1abc']), false);
+log(areAllNumbers([5, 3, 2, 1]), true);
+log(areAllNumbers([5]), true);
+log(areAllNumbers([]), true);
+log(areAllNumbers(['a']), false);
+log(areAllNumbers([5, 3, 'a', 1]), false);
+theEnd();
+    </script>
+  </body>
+</html>

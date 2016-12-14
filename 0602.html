@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>javascript</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="assert.js"></script>
+  </head>
+
+  <body>
+    <pre id="console">
+    </pre>
+
+    <script>
+'use strict';
+
+function totalArea(rectangles) {
+  var areas = rectangles.map(
+    function area(rectangle) {
+      return rectangle[0] * rectangle[1];
+    }
+  );
+
+  return areas.reduce(
+    function computeSum(sum, value) {
+      return sum + value;
+    },
+    0
+  );
+}
+
+function totalSquareArea(rectangles) {
+  var squares = rectangles.filter(
+    function isSquare(rectangle) {
+      return rectangle[0] === rectangle[1];
+    }
+  );
+
+  return totalArea(squares);
+}
+
+/* eslint-disable no-magic-numbers */
+/* eslint-disable vars-on-top */
+/* global show, log, theEnd */
+
+var rectangles = [[3, 4], [6, 6], [1, 8], [9, 9], [2, 2]];
+log(totalSquareArea(rectangles), 121);
+
+rectangles = [[1, 8], [9, 9], [2, 2]];
+log(totalSquareArea(rectangles), 85);
+
+rectangles = [[2, 2]];
+log(totalSquareArea(rectangles), 4);
+
+rectangles = [[3, 4]];
+log(totalSquareArea(rectangles), 0);
+
+rectangles = [];
+log(totalSquareArea(rectangles), 0);
+theEnd();
+    </script>
+  </body>
+</html>

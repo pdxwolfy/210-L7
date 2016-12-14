@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>javascript</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="assert.js"></script>
+  </head>
+
+  <body>
+    <pre id="console">
+    </pre>
+
+    <script>
+'use strict';
+
+function compareScores(score1, score2) {
+  if (score1 < score2) {
+    return -1;
+  } else if (score1 > score2) {
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
+/* eslint-disable no-magic-numbers */
+/* eslint-disable vars-on-top */
+/* global show, log, theEnd */
+
+var scores = [88, 50, 60, 99, 12, 23];
+log(scores.sort(compareScores), [12, 23, 50, 60, 88, 99]);            
+log(scores, [12, 23, 50, 60, 88, 99]);
+theEnd();
+    </script>
+  </body>
+</html>

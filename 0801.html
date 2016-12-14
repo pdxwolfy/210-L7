@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>javascript</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="assert.js"></script>
+  </head>
+
+  <body>
+    <pre id="console">
+    </pre>
+
+    <script>
+'use strict';
+
+// Convert string to array of digits
+// Convert array of digits to array of numbers
+// Convert array of numbers to a decimal value
+function octalToDecimal(numberString) {
+  var toDigit = function toDigit(digitString) {
+    return Number(digitString);
+  };
+
+  var toDecimal = function toDecimal(sum, digit) {
+    return (8 * sum) + digit;
+  };
+
+  return numberString.split('')
+                     .map(toDigit)
+                     .reduce(toDecimal);
+}
+
+/* eslint-disable no-magic-numbers */
+/* eslint-disable vars-on-top */
+/* global show, log, theEnd */
+
+log(octalToDecimal('1'),    1);
+log(octalToDecimal('10'),   8);
+log(octalToDecimal('130'),  88);
+log(octalToDecimal('17'),   15);
+log(octalToDecimal('2047'), 1063);
+log(octalToDecimal('011'),  9);
+
+theEnd();
+    </script>
+  </body>
+</html>

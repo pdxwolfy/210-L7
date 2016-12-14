@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>javascript</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="assert.js"></script>
+  </head>
+
+  <body>
+    <pre id="console">
+    </pre>
+
+    <script>
+'use strict';
+
+var myOwnEvery = function myOwnEvery(array, func) {
+  var index;
+
+  for (index = 0; index < array.length; ++index) {
+    if (!func(array[index], index, array)) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
+var myOwnSome = function myOwnSome(array, func) {
+  var index;
+
+  for (index = 0; index < array.length; ++index) {
+    if (func(array[index], index, array)) {
+      return true;
+    }
+  }
+
+  return false;
+};
+
+var isAString = function isAString(value) {
+  return typeof value === 'string';
+};
+
+/* eslint-disable no-magic-numbers */
+/* eslint-disable vars-on-top */
+/* global show, log, theEnd */
+
+log(myOwnEvery(['a', 'a234', '1abc'], isAString), true);
+log(myOwnEvery(['a'], isAString), true);
+log(myOwnEvery([], isAString), true);
+log(myOwnEvery(['a', 234, '1abc'], isAString), false);
+
+show('');
+log(myOwnSome(['a', 'a234', '1abc'], isAString), true);
+log(myOwnSome(['a'], isAString), true);
+log(myOwnSome([], isAString), false);
+log(myOwnSome(['a', 234, '1abc'], isAString), true);
+log(myOwnSome([[], 234, null], isAString), false);
+log(myOwnSome([['a'], 234, null], isAString), false);
+log(myOwnSome([[], 234, 'a'], isAString), true);
+theEnd();
+    </script>
+  </body>
+</html>

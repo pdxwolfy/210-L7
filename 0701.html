@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>javascript</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="assert.js"></script>
+  </head>
+
+  <body>
+    <pre id="console">
+    </pre>
+
+    <script>
+'use strict';
+
+// filter out items that don't have an id
+// filter out items that don't have a title
+// keep only id and title
+
+function processReleaseData(data) {
+  var dataWithId = data.filter(
+    function hasId(release) {
+      var keys = Object.keys(release);
+      return keys.indexOf('id') !== -1;
+    }
+  );
+
+  var dataWithIdAndTitle = dataWithId.filter(
+    function hasTitle(release) {
+      var keys = Object.keys(release);
+      return keys.indexOf('title') !== -1;
+    }
+  );
+
+  return dataWithIdAndTitle.map(
+    function idAndTitle(release) {
+      return { id: release.id, title: release.title };
+    }
+  );
+}
+
+/* eslint-disable no-magic-numbers */
+/* eslint-disable vars-on-top */
+/* eslint-disable quote-props */
+/* global show, log, theEnd */
+
+var newReleases = [
+  {
+    'id': 70111470,
+    'title': 'Die Hard',
+    'boxart': 'http://cdn-0.nflximg.com/images/2891/DieHard.jpg',
+    'uri': 'http://api.netflix.com/catalog/titles/movies/70111470',
+    'rating': [4.0],
+    'bookmark': [],
+  },
+  {
+    'id': 654356453,
+    'boxart': 'http://cdn-0.nflximg.com/images/2891/BadBoys.jpg',
+    'uri': 'http://api.netflix.com/catalog/titles/movies/70111470',
+    'rating': [5.0],
+    'bookmark': [{ id: 432534, time: 65876586 }],
+  },
+  {
+    'title': 'The Chamber',
+    'boxart': 'http://cdn-0.nflximg.com/images/2891/TheChamber.jpg',
+    'uri': 'http://api.netflix.com/catalog/titles/movies/70111470',
+    'rating': [4.0],
+    'bookmark': [],
+  },
+  {
+    'id': 675465,
+    'title': 'Fracture',
+    'boxart': 'http://cdn-0.nflximg.com/images/2891/Fracture.jpg',
+    'uri': 'http://api.netflix.com/catalog/titles/movies/70111470',
+    'rating': [5.0],
+    'bookmark': [{ id: 432534, time: 65876586 }],
+  },
+];
+
+log(processReleaseData(newReleases),
+    [{ id: 70111470, title: 'Die Hard' }, { id: 675465, title: 'Fracture' }]);
+
+theEnd();
+    </script>
+  </body>
+</html>

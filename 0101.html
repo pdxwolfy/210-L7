@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>javascript</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="assert.js"></script>
+  </head>
+
+  <body>
+    <pre id="console">
+    </pre>
+
+    <script>
+'use strict';
+
+var myForEach = function myForEach(array, func) {
+  var index;
+
+  for (index = 0; index < array.length; ++index) {
+    func(array[index], index, array);
+  }
+};
+
+/* eslint-disable no-magic-numbers */
+/* eslint-disable vars-on-top */
+/* global show, log, theEnd */
+
+var min = Infinity;
+var getMin = function getMin(value) {
+  min = value <= min ? value : min;
+};
+
+myForEach([4, 5, 12, 23, 3], getMin);
+log(min, 3);
+
+min = Infinity;
+myForEach([4, 5, 12, 23], getMin);
+log(min, 4);
+
+min = Infinity;
+myForEach([12], getMin);
+log(min, 12);
+
+min = Infinity;
+myForEach([], getMin);
+log(min, Infinity);
+theEnd();
+
+/*
+ * one()
+ *   anotherAnotherOne()
+ *     -> 'Welcome '
+ *     anotherOne('t', 'o', ' ')
+ *       -> 'to '
+ *     anotherOne('t', 'h', 'e', ' ')
+ *       -> 'the '
+ *     -> 'Martix!'
+ */
+    </script>
+  </body>
+</html>
