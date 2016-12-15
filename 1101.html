@@ -32,15 +32,11 @@ function sum(values) {
     function add(total, value) {
       return total + value;
     }
-  )
+  );
 }
 
 function average(values) {
   return sum(values) / values.length;
-}
-
-function roundedAverage(values) {
-  return Math.round(average(values));
 }
 
 function grade(score) {
@@ -59,19 +55,31 @@ function grade(score) {
   }
 }
 
+function assignGrade(score) {
+  return String(score) + ' (' + grade(score) + ')';
+}
+
 function weightedSum(examScore, exerciseScore) {
   return Math.round((0.65 * examScore) + (0.35 * exerciseScore));
 }
 
-function generateClassRecordSummary(scores) {
-  function averageExamScores(listOfScores) {
-    listOfScroes
-    console.log(listOfScores);
-    console.log(listOfScores.reduce(sum));
-    console.log(listOfScores.reduce(sum) / listOfScores.length);
-    return Math.round(listOfScores.reduce(sum) / listOfScores.length);
-  }
+function transpose(matrix) {
+  return matrix[0].map(
+    function rowToColumn(column, columnIndex) {
+      return matrix.map(
+        function extractColumn(row) {
+          return row[columnIndex];
+        }
+      );
+    }
+  );
+}
 
+function round1(value) {
+  return Math.round(10 * value) / 10;
+}
+
+function generateClassRecordSummary(scores) {
   var scoreData = Object.keys(scores).map(
     function scoresData(student) {
       return scores[student].scores;
@@ -90,19 +98,38 @@ function generateClassRecordSummary(scores) {
     }
   );
 
-  console.log(exerciseScores);
-  var averageExamScores = examScores.map(roundedAverage);
-  var totalExerciseScores = exerciseScores.map(sum);
+  function minimum(currentMinimum, thisValue) {
+    return thisValue < currentMinimum ? thisValue : currentMinimum;
+  }
 
-  console.log(averageExamScores);
-  console.log(totalExerciseScores);
-  function studentGradeSummary() {
-    return null;
-  };
+  function maximum(currentMaximum, thisValue) {
+    return thisValue > currentMaximum ? thisValue : currentMaximum;
+  }
+
+  function statistics(scoresForExam) {
+    return {
+      average: round1(average(scoresForExam)),
+      minimum: scoresForExam.reduce(minimum,  Infinity),
+      maximum: scoresForExam.reduce(maximum, -Infinity),
+    };
+  }
+
+  function computeGrade() {
+    var averageExamScores = examScores.map(average);
+    var totalExerciseScores = exerciseScores.map(sum);
+    var finalScores = averageExamScores.map(
+      function weightedAverage(examScore, index) {
+        var total = (0.65 * examScore) + (0.35 * totalExerciseScores[index]);
+        return Math.round(total);
+      }
+    );
+
+    return finalScores.map(assignGrade);
+  }
 
   return {
-    studentGrades: studentGradeSummary(),
-    exams: examStatistics(),
+    studentGrades: computeGrade(),
+    exams: transpose(examScores).map(statistics),
   };
 }
 

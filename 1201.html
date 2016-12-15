@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>javascript</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="assert.js"></script>
+  </head>
+
+  <body>
+    <pre id="console">
+    </pre>
+
+    <script>
+'use strict';
+
+function isAllUnique(string) {
+  var seen = {};
+
+  function toLower(character) {
+    return character.toLowerCase();
+  }
+
+  function isNotSpace(character) {
+    return character !== ' ';
+  }
+
+  function unique(character) {
+    if (seen[character] === 1) {
+      return false;
+    }
+
+    seen[character] = 1;
+    return true;
+  }
+
+  return string.split('')
+               .map(toLower)
+               .filter(isNotSpace)
+               .every(unique);
+}
+
+/* eslint-disable no-magic-numbers */
+/* eslint-disable vars-on-top */
+/* global show, log, theEnd */
+
+log(isAllUnique('The quick brown fox jumped over a lazy dog'), false);
+log(isAllUnique('123,456,789'),                                false);
+log(isAllUnique('The big apple'),                              false);
+log(isAllUnique('The big apPlE'),                              false);
+log(isAllUnique('!@#$%^&*()'),                                 true);
+log(isAllUnique('abcdefghijklmnopqrstuvwxyz'),                 true);
+
+theEnd();
+    </script>
+  </body>
+</html>
